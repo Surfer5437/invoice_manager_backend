@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "stop": "pm2 kill",
-    "start": "pm2 start server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
