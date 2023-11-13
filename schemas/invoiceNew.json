@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://our.company.com/jobNew.schema.json",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "amount": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 30
+    },
+    "service_type": {
+      "type": "string",
+      "minimum": 0
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "company_id": {
+      "type": "integer",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "job_po_number": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "date",
+    "amount",
+    "service_type",
+    "company_id",
+    "job_po_number"
+  ]
+}

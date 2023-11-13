@@ -1,0 +1,5 @@
+runtime: nodejs18
+service: server
+env_variables:
+  DATABASE_URL: "/cloudsql/dynamic-cove-403821:us-central1:im"
+  ACCESS_TOKEN_SECRET: "cc20316fc1aa2bf7cf08f35a0cb742809dae33fe7cf765d9b139a86b4e34e49630e36912a63066f969c829544bc1668dffa1aebf3932e94a4201ccafd229b1d9"
