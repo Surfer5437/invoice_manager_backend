@@ -47,7 +47,9 @@ function ensureLoggedIn(req, res, next) {
  */
 
 function ensureAdmin(req, res, next) {
-  const token = req.cookies.jwt; // Retrieve JWT token from the cookie
+ 
+  const token = req.cookies.jwt;  // Retrieve JWT token from the cookie
+  console.log(token)
     if (!token) {
       return res.status(401).send('Unauthorized');
     }
