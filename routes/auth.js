@@ -11,7 +11,6 @@ const { createAccessToken } = require("../helpers/tokens");
 const userAuthSchema = require("../schemas/userAuth.json");
 const userRegisterSchema = require("../schemas/userRegister.json");
 const { BadRequestError } = require("../expressError");
-const crypto = require('crypto');
 
 /** POST /auth/token:  { username, password } => { token }
  *
@@ -29,6 +28,7 @@ router.post("/token", async function (req, res, next) {
     }
     const { username, password } = req.body;
     const user = await User.authenticate(username, password);
+    console.log(user);
     const accessToken = createAccessToken(user);
   res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge:86400000 });
   res.send(user);

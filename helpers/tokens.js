@@ -4,8 +4,6 @@ const {  REFRESH_ACCESS_TOKEN } = require("../config");
 /** return signed JWT from user data. */
 
 function createAccessToken(user) {
-  console.assert(user.is_admin !== undefined,
-      "createToken passed user without is_admin property");
 
   let payload = {
     username: user.username,
