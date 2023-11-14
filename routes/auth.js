@@ -28,8 +28,9 @@ router.post("/token", async function (req, res, next) {
     }
     const { username, password } = req.body;
     const user = await User.authenticate(username, password);
-    console.log(user);
+    
     const accessToken = createAccessToken(user);
+    console.log(user, accessToken);
   res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge:86400000 });
   res.send(user);
   } catch (err) {
