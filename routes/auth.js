@@ -36,7 +36,7 @@ router.post("/token", async function (req, res, next) {
 
     const domain = 'https://invoicemanager-7023bcd0d92d.herokuapp.com';
 
-        res.cookie('access_token',accessToken, { domain: domain, path: '/', expires: new Date(Date.now() + 9000000), httpOnly: false });
+        res.cookie('access_token',accessToken, { domain: domain, path: '/', expires: new Date(Date.now() + 9000000), secure: true, httpOnly: true });
         res.status(200).json(user)
   
     // res.cookie('jwt', accessToken, { httpOnly: true, path: '/', domain: 'https://invoicemanager-7023bcd0d92d.herokuapp.com' });
