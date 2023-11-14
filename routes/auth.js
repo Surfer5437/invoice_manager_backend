@@ -6,6 +6,7 @@ const jsonschema = require("jsonschema");
 
 const User = require("../models/user");
 const express = require("express");
+const dayjs = require("dayjs");
 const router = new express.Router();
 const { createAccessToken } = require("../helpers/tokens");
 const userAuthSchema = require("../schemas/userAuth.json");
@@ -34,14 +35,13 @@ router.post("/token", async function (req, res, next) {
 
 
 
-    const domain = 'https://invoicemanager-7023bcd0d92d.herokuapp.com';
-
-        res.cookie('jwt',accessToken, { domain: domain, path: '/', expires: new Date(Date.now() + 9000000), secure: true, httpOnly: true });
-        res.status(200).json(user)
-  
-    // res.cookie('jwt', accessToken, { httpOnly: true, path: '/', domain: 'https://invoicemanager-7023bcd0d92d.herokuapp.com' });
+    res.cookie("jwt", JSON.stringify(accessToken), {
+      secure: process.env.NODE_ENV !== "development",
+      httpOnly: true,
+      expires: dayjs().add(30, "days").toDate(),
+    });
   // res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge:86400000 });
-//  res.send(user);
+ res.send(user);
 
 
 
