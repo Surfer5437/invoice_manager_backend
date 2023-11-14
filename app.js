@@ -16,6 +16,10 @@ const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const app = express();
 // Enable CORS for all routes
+
+app.use(express.json());
+app.use(morgan("tiny"));
+app.use(cookieParser());
 const allowedOrigins = ['https://imfrontend-e227fc11f89f.herokuapp.com'];
 app.use(cors({
   origin: function (origin, callback) {
@@ -27,10 +31,6 @@ app.use(cors({
   },
   credentials: true,
 }));
-app.use(express.json());
-app.use(morgan("tiny"));
-app.use(cookieParser());
-
 app.use("/auth", authRoutes);
 app.use("/companies", companiesRoutes);
 app.use("/users", usersRoutes);
