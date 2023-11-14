@@ -7,7 +7,9 @@ let db;
 if (process.env.NODE_ENV === "production") {
   db = new Client({
     connectionString: getDatabaseUri(),
-    ssl: true
+    ssl:{
+      rejectUnauthorized: false // This is to bypass self-signed certificate issues, consider configuring a proper SSL certificate for production
+    }
   });
 } else {
   db = new Client(
