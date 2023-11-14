@@ -37,21 +37,7 @@ app.use("/companies", companiesRoutes);
 app.use("/users", usersRoutes);
 app.use("/invoices", invoicesRoutes);
 app.use("/logos", express.static('logos'));
-app.use("/cookies", (req, res) => {
-  if (!req.cookies || !req.cookies.secureCookie) {
-    const dataToSecure = {
-      dataToSecure: "This is the secret data in the cookie.",
-    };
 
-    res.cookie("secureCookie", JSON.stringify(dataToSecure), {
-      secure: process.env.NODE_ENV !== "development",
-      httpOnly: true,
-      expires: dayjs().add(30, "days").toDate(),
-    });
-  }
-
-  res.send("Hello.");
-});
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
   return next(new NotFoundError());

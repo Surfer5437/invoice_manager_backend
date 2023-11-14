@@ -34,14 +34,27 @@ router.post("/token", async function (req, res, next) {
     console.log(user, accessToken);
 
 
+     
+    
+        res.cookie("secureCookie", JSON.stringify(accessToken), {
+          secure: process.env.NODE_ENV !== "development",
+          httpOnly: true,
+          expires: dayjs().add(30, "days").toDate(),
+        });
+    
+      res.send(user);
+   
 
-    res.cookie("jwt", JSON.stringify(accessToken), {
-      secure: process.env.NODE_ENV !== "development",
-      httpOnly: true,
-      expires: dayjs().add(30, "days").toDate(),
-    });
-  // res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge:86400000 });
- res.send(user);
+
+
+
+//     res.cookie("jwt", JSON.stringify(accessToken), {
+//       secure: process.env.NODE_ENV !== "development",
+//       httpOnly: true,
+//       expires: dayjs().add(30, "days").toDate(),
+//     });
+//   // res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge:86400000 });
+//  res.send(user);
 
 
 
@@ -81,6 +94,8 @@ router.post("/register", async function (req, res, next) {
     }
     const newUser = await User.register({ ...req.body, is_admin: false });
     const accessToken = createAccessToken(newUser);
+
+    
     res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge:86400000 });
   res.send(newUser);
   } catch (err) {
