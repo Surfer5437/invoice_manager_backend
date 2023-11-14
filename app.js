@@ -33,7 +33,7 @@ app.use(cors({
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
 }));
-app.use("/auth", authRoutes);
+app.use("/auth", cookieParser(),authRoutes);
 app.use("/companies", companiesRoutes);
 app.use("/users", usersRoutes);
 app.use("/invoices", invoicesRoutes);
