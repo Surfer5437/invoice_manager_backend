@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(cookieParser());
-const allowedOrigins = ['https://imfrontend-e227fc11f89f.herokuapp.com'];
+const allowedOrigins = ['https://imfrontend-e227fc11f89f.herokuapp.com', 'https://invoicemanager-7023bcd0d92d.herokuapp.com'];
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
