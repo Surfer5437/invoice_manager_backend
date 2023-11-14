@@ -31,7 +31,8 @@ router.post("/token", async function (req, res, next) {
     
     const accessToken = createAccessToken(user);
     console.log(user, accessToken);
-  res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge:86400000 });
+    res.cookie('jwt', accessToken, { httpOnly: true, path: '/', domain: '.https://invoicemanager-7023bcd0d92d.herokuapp.com/' });
+  // res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge:86400000 });
   res.send(user);
   } catch (err) {
     return next(err);
