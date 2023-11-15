@@ -43,7 +43,7 @@ router.post("/token", async function (req, res, next) {
           sameSite: 'None'
         });
     
-      res.JSON(user);
+      res.json(user);
       res.send('sent');
    
 
