@@ -27,44 +27,34 @@ router.post("/token", async function (req, res, next) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
+
     const { username, password } = req.body;
     const user = await User.authenticate(username, password);
-if (!user) {
-  throw new UnauthorizedError("Invalid credentials");
-}
-    const accessToken = createAccessToken(user);
-    console.log(user, accessToken);
-
-
-     
-      res.json(user);
-
-        res.cookie("jwt", accessToken, {
-          secure: process.env.NODE_ENV !== "development",
-          httpOnly: true,
-          expires: dayjs().add(30, "days").toDate(),
-          sameSite: 'None'
-        });
     
+    if (!user) {
+      // Handle authentication failure
+      throw new UnauthorizedError("Invalid credentials");
+    }
 
-//     res.cookie("jwt", JSON.stringify(accessToken), {
-//       secure: process.env.NODE_ENV !== "development",
-//       httpOnly: true,
-//       expires: dayjs().add(30, "days").toDate(),
-//     });
-//   // res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge:86400000 });
-//  res.send(user);
+    const accessToken = createAccessToken(user);
 
+    res.cookie("jwt", accessToken, {
+      secure: process.env.NODE_ENV !== "development",
+      httpOnly: true,
+      expires: dayjs().add(30, "days").toDate(),
+      sameSite: 'None'
+    });
 
+    // Now that the cookie is set, send the JSON response
+    res.json(user);
 
-
- 
   } catch (err) {
     return next(err);
   }
 });
 
-/** POST /auth/logout:   { user } => { clearCookie }
+
+/** GET /auth/logout:   { user } => { clearCookie }
  *
  * Authorization required: none
  */
