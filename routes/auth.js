@@ -46,8 +46,6 @@ router.post("/token", async function (req, res, next) {
         httpOnly: true,
         expires: dayjs().add(30, "days").toDate(),
         sameSite: 'None',
-        // Make sure to call resolve when the cookie is set
-        // so that the code below it doesn't execute until then
       });
       resolve();
     });
@@ -68,7 +66,10 @@ router.post("/token", async function (req, res, next) {
  */
 
 router.get("/logout", async function(req,res){
-  res.clearCookie('jwt');
+  await new Promise((resolve) => {
+    res.clearCookie('jwt');
+      resolve();
+    });
   res.send('logged out');
 });
 
