@@ -36,13 +36,20 @@ router.post("/token", async function (req, res, next) {
       throw new UnauthorizedError("Invalid credentials");
     }
 
+    // Assuming createAccessToken is a function that generates the access token
     const accessToken = createAccessToken(user);
 
-    res.cookie("jwt", accessToken, {
-      secure: process.env.NODE_ENV !== "development",
-      httpOnly: true,
-      expires: dayjs().add(30, "days").toDate(),
-      sameSite: 'None'
+    // Set the cookie, and wait for it to complete
+    await new Promise((resolve) => {
+      res.cookie("jwt", accessToken, {
+        secure: process.env.NODE_ENV !== "development",
+        httpOnly: true,
+        expires: dayjs().add(30, "days").toDate(),
+        sameSite: 'None',
+        // Make sure to call resolve when the cookie is set
+        // so that the code below it doesn't execute until then
+      });
+      resolve();
     });
 
     // Now that the cookie is set, send the JSON response
@@ -52,6 +59,7 @@ router.post("/token", async function (req, res, next) {
     return next(err);
   }
 });
+
 
 
 /** GET /auth/logout:   { user } => { clearCookie }
