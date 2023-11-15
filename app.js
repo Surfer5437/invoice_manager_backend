@@ -13,14 +13,12 @@ const usersRoutes = require("./routes/users");
 const invoicesRoutes = require("./routes/invoices");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-const dayjs = require("dayjs");
 const cors = require('cors');
 const app = express();
 // Enable CORS for all routes
 
 app.use(express.json());
 app.use(morgan("tiny"));
-app.use(cookieParser());
 const allowedOrigins = ['https://imfrontend-e227fc11f89f.herokuapp.com', 'https://invoicemanager-7023bcd0d92d.herokuapp.com'];
 app.use(cors({
   origin: function (origin, callback) {
@@ -33,7 +31,8 @@ app.use(cors({
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
 }));
-app.use("/auth", cookieParser(),authRoutes);
+app.use(cookieParser());
+app.use("/auth",authRoutes);
 app.use("/companies", companiesRoutes);
 app.use("/users", usersRoutes);
 app.use("/invoices", invoicesRoutes);

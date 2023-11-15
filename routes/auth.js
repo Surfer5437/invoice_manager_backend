@@ -35,8 +35,8 @@ router.post("/token", async function (req, res, next) {
 
 
      
-    
-        res.cookie("secureCookie", JSON.stringify(accessToken), {
+    const tkn = JSON.stringify(accessToken);
+        res.cookie("jwt", tkn, {
           secure: process.env.NODE_ENV !== "development",
           httpOnly: true,
           expires: dayjs().add(30, "days").toDate(),
