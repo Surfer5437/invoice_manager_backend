@@ -33,14 +33,15 @@ router.post("/token", async function (req, res, next) {
     const accessToken = createAccessToken(user);
     console.log(user, accessToken);
 
-// , {
-//           secure: process.env.NODE_ENV !== "development",
-//           httpOnly: true,
-//           expires: dayjs().add(30, "days").toDate(),
-//         }
+
      
     const tkn = JSON.stringify(accessToken);
-        res.cookie("jwt", tkn);
+        res.cookie("jwt", tkn, {
+          secure: process.env.NODE_ENV !== "development",
+          httpOnly: true,
+          expires: dayjs().add(30, "days").toDate(),
+          sameSite: 'None'
+        });
     
       res.send(user);
    
