@@ -21,7 +21,6 @@ const { BadRequestError } = require("../expressError");
  */
 
 router.post("/token", async function (req, res, next) {
-  console.log(req)
   try {
     const validator = jsonschema.validate(req.body, userAuthSchema);
     if (!validator.valid) {
@@ -30,14 +29,15 @@ router.post("/token", async function (req, res, next) {
     }
     const { username, password } = req.body;
     const user = await User.authenticate(username, password);
-    
+if (!user) {
+  throw new UnauthorizedError("Invalid credentials");
+}
     const accessToken = createAccessToken(user);
     console.log(user, accessToken);
 
 
      
-    const tkn = JSON.stringify(accessToken);
-        res.cookie("jwt", tkn, {
+        res.cookie("jwt", accessToken, {
           secure: process.env.NODE_ENV !== "development",
           httpOnly: true,
           expires: dayjs().add(30, "days").toDate(),
@@ -45,9 +45,6 @@ router.post("/token", async function (req, res, next) {
         });
     
       res.json(user);
-   
-
-next();
 
 
 //     res.cookie("jwt", JSON.stringify(accessToken), {
