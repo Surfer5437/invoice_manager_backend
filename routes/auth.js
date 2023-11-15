@@ -44,7 +44,6 @@ router.post("/token", async function (req, res, next) {
         });
     
       res.json(user);
-      res.send('sent');
    
 
 next();
