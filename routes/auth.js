@@ -37,6 +37,8 @@ if (!user) {
 
 
      
+      res.json(user);
+
         res.cookie("jwt", accessToken, {
           secure: process.env.NODE_ENV !== "development",
           httpOnly: true,
@@ -44,8 +46,6 @@ if (!user) {
           sameSite: 'None'
         });
     
-      res.json(user);
-
 
 //     res.cookie("jwt", JSON.stringify(accessToken), {
 //       secure: process.env.NODE_ENV !== "development",
