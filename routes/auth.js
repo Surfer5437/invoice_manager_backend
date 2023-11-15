@@ -47,7 +47,7 @@ router.post("/token", async function (req, res, next) {
       res.send('sent');
    
 
-
+next();
 
 
 //     res.cookie("jwt", JSON.stringify(accessToken), {
